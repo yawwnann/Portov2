@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@keyframes hero-fadein {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-hero-fadein {
+  animation: hero-fadein 1s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+}
+
+@keyframes heroicon-fadein {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-heroicon-fadein {
+  animation: heroicon-fadein 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
