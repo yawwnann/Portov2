@@ -96,49 +96,59 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 
   return (
-    <p
-      ref={ref}
-      className={`blur-text ${className}`}
-      style={{
-        color: "white",
-        textAlign: "center",
-        zIndex: 2,
-        width: "max-content",
-        pointerEvents: "none",
-        fontSize: 70,
-        margin: "auto",
-      }}
-    >
-      {elements.map((segment, index) => {
-        const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
+    <>
+      <p
+        ref={ref}
+        className={`blur-text ${className}`}
+        style={{
+          color: "white",
+          textAlign: "center",
+          zIndex: 2,
+          width: "max-content",
+          pointerEvents: "none",
+          fontSize: 70,
+          margin: "auto",
+        }}
+      >
+        {elements.map((segment, index) => {
+          const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
 
-        const spanTransition: Transition = {
-          duration: totalDuration,
-          times,
-          delay: (index * delay) / 1000,
-        };
-        (spanTransition as Record<string, unknown>).ease = easing;
+          const spanTransition: Transition = {
+            duration: totalDuration,
+            times,
+            delay: (index * delay) / 1000,
+          };
+          (spanTransition as Record<string, unknown>).ease = easing;
 
-        return (
-          <motion.span
-            key={index}
-            initial={fromSnapshot}
-            animate={inView ? animateKeyframes : fromSnapshot}
-            transition={spanTransition}
-            onAnimationComplete={
-              index === elements.length - 1 ? onAnimationComplete : undefined
-            }
-            style={{
-              display: "inline-block",
-              willChange: "transform, filter, opacity",
-            }}
-          >
-            {segment === " " ? "\u00A0" : segment}
-            {animateBy === "words" && index < elements.length - 1 && "\u00A0"}
-          </motion.span>
-        );
-      })}
-    </p>
+          return (
+            <motion.span
+              key={index}
+              initial={fromSnapshot}
+              animate={inView ? animateKeyframes : fromSnapshot}
+              transition={spanTransition}
+              onAnimationComplete={
+                index === elements.length - 1 ? onAnimationComplete : undefined
+              }
+              style={{
+                display: "inline-block",
+                willChange: "transform, filter, opacity",
+              }}
+            >
+              {segment === " " ? "\u00A0" : segment}
+              {animateBy === "words" && index < elements.length - 1 && "\u00A0"}
+            </motion.span>
+          );
+        })}
+      </p>
+      <motion.p
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
+        style={{ color: "white", textAlign: "center", marginTop: 16 }}
+      >
+        Building creative and functional digital solutions.
+      </motion.p>
+    </>
   );
 };
 

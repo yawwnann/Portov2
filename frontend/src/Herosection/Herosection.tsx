@@ -1,8 +1,9 @@
 import Aurora from "./Background/Aurora";
 import BlurText from "./HeroText/HeroText";
 import CircularText from "./HeroText/CircularText";
-import HeroIconY2K2 from "./HeroIconY2K2";
+import HeroIconY2K2 from "./HeroText/HeroIconY2K2";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Herosection() {
   const [animateIn, setAnimateIn] = useState(false);
@@ -75,8 +76,11 @@ export default function Herosection() {
           }`}
         />
 
-        {/* Buttons Container */}
-        <div
+        {/* Animated Buttons Container */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
           style={{
             display: "flex",
             gap: "20px",
@@ -85,61 +89,73 @@ export default function Herosection() {
           }}
         >
           {/* Get Started Button */}
-          <button
+          <motion.button
+            whileHover={{
+              scale: 1.08,
+              y: -4,
+              boxShadow:
+                "0 8px 25px rgba(255,255,255,0.4), 0 0 20px rgba(0, 201, 255, 0.3)",
+              borderColor: "rgba(0, 201, 255, 0.8)",
+              backgroundColor: "rgba(255, 255, 255, 0.95)",
+              color: "rgba(0, 0, 0, 0.9)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.4 }}
             style={{
               padding: "12px 24px",
-              backgroundColor: "white",
-              color: "black",
-              border: "1px solid #333",
-              borderRadius: "8px",
+              backgroundColor: "black",
+              color: "white",
+              border: "3px solid white",
+              borderRadius: "12px",
               fontSize: "16px",
               fontWeight: "600",
               cursor: "pointer",
               transition: "all 0.3s ease",
               fontFamily: "sans-serif",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow =
-                "0 4px 12px rgba(255,255,255,0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
+              position: "relative",
+              overflow: "hidden",
             }}
             onClick={() => console.log("Get Started clicked")}
           >
             Get Started
-          </button>
+          </motion.button>
 
           {/* Learn More Button */}
-          <button
+          <motion.button
+            whileHover={{
+              scale: 1.08,
+              y: -4,
+              boxShadow:
+                "0 8px 25px rgba(255,255,255,0.2), 0 0 20px rgba(146, 254, 157, 0.3)",
+              borderColor: "rgba(146, 254, 157, 0.8)",
+              backgroundColor: "rgba(0, 0, 0, 0.95)",
+              color: "rgba(255, 255, 255, 0.9)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.6 }}
             style={{
               padding: "12px 24px",
-              backgroundColor: "black",
-              color: "#ccc",
-              border: "1px solid white",
-              borderRadius: "8px",
+              backgroundColor: "white",
+              color: "black",
+              border: "2px solid white",
+              borderRadius: "12px",
               fontSize: "16px",
               fontWeight: "600",
               cursor: "pointer",
               transition: "all 0.3s ease",
               fontFamily: "sans-serif",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow =
-                "0 4px 12px rgba(255,255,255,0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
+              position: "relative",
+              overflow: "hidden",
             }}
             onClick={() => console.log("Learn More clicked")}
           >
             Learn More
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
     </div>
   );
