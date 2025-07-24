@@ -11,7 +11,7 @@ import Project10Img from "../../assets/Project/Project10/AndikaTani.png";
 import Project11Img from "../../assets/Project/Project11/LestariATK.png";
 import Project12Img from "../../assets/Project/Project12/TrijayaAgung.png";
 import Project13Img from "../../assets/Project/Project13/FinTrack.png";
-import Project14Img from "../../assets/Project/Project14/pasifix.png";
+import Project14Img from "../../assets/Project/Project14/Pasifix.png";
 
 export const cards = [
   {
