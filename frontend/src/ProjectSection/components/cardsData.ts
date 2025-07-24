@@ -4,7 +4,7 @@ import Project3Img from "../../assets/Project/Project3/Nayshop.png";
 import Project4Img from "../../assets/Project/Project4/personal-web.png";
 import Project5Img from "../../assets/Project/Project5/dashboard_perpus.png";
 import Project6Img from "../../assets/Project/project6/pradiwa_dashboard.png";
-import Project7Img from "../../assets/Project/Project7/javanesia.png";
+import Project7Img from "../../assets/Project/Project7/Javanesia.png";
 import Project8Img from "../../assets/Project/Project8/BuanaPetshop.png";
 import Project9Img from "../../assets/Project/Project9/nmj.png";
 import Project10Img from "../../assets/Project/Project10/AndikaTani.png";
