@@ -1,6 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 @import "tailwindcss";
 
+/* * {
+  scroll-behavior: smooth;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: black;
+} */
+
 body {
   font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
@@ -20,4 +28,25 @@ body {
       transform: translate(calc(-50% - 0.5rem));
     }
   }
+}
+
+/* Custom scrollbar for sticky scroll section */
+.sticky-scroll-custom::-webkit-scrollbar {
+  width: 10px;
+  background: #18181b;
+  border-radius: 8px;
+}
+.sticky-scroll-custom::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 8px;
+  border: 2px solid #18181b;
+}
+.sticky-scroll-custom::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* For Firefox */
+.sticky-scroll-custom {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 #18181b;
 }

@@ -1,6 +1,18 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "motion/react";
+import { cards } from "../ProjectSection/components/cardsData";
+
+// Definisikan tipe Card sesuai struktur di cardsData.ts
+interface Card {
+  description: string;
+  title: string;
+  src: string;
+  ctaText: string;
+  ctaLink: string;
+  techStack: string[];
+  content: string;
+}
 
 const transition = {
   type: "spring" as const,
@@ -19,11 +31,11 @@ export const MenuItem = ({
 }: {
   setActive: (item: string) => void;
   active: string | null;
-  item: string;
+  item: React.ReactNode;
   children?: React.ReactNode;
 }) => {
   return (
-    <div onMouseEnter={() => setActive(item)} className="relative ">
+    <div onMouseEnter={() => setActive(item as string)} className="relative ">
       <motion.p
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
@@ -41,7 +53,7 @@ export const MenuItem = ({
               <motion.div
                 transition={transition}
                 layoutId="active" // layoutId ensures smooth animation
-                className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
+                className="rounded-2xl overflow-hidden border-none "
               >
                 <motion.div
                   layout // layout ensures smooth animation
@@ -68,7 +80,7 @@ export const Menu = ({
   return (
     <nav
       onMouseLeave={() => setActive(null)} // resets the state
-      className="relative rounded-full border border-transparent dark:bg-black dark:border-white/[0.2] bg-white shadow-input flex justify-center space-x-4 px-8 py-6 "
+      className="relative rounded-full border border-transparent dark:border-white/[0.2] bg-transparent shadow-input backdrop-blur-md flex justify-center space-x-4 px-8 py-6 "
     >
       {children}
     </nav>
@@ -80,14 +92,16 @@ export const ProductItem = ({
   description,
   href,
   src,
+  onClick,
 }: {
   title: string;
   description: string;
   href: string;
   src: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 }) => {
   return (
-    <a href={href} className="flex space-x-2">
+    <a href={href} className="flex space-x-4 items-start" onClick={onClick}>
       <img
         src={src}
         width={140}
@@ -96,12 +110,8 @@ export const ProductItem = ({
         className="shrink-0 rounded-md shadow-2xl"
       />
       <div>
-        <h4 className="text-xl font-bold mb-1 text-black dark:text-white">
-          {title}
-        </h4>
-        <p className="text-neutral-700 text-sm max-w-[10rem] dark:text-neutral-300">
-          {description}
-        </p>
+        <h4 className="text-xl font-bold mb-1 text-white">{title}</h4>
+        <p className="text-neutral-300 text-sm max-w-[12rem]">{description}</p>
       </div>
     </a>
   );
@@ -114,9 +124,52 @@ export const HoveredLink = ({
   return (
     <a
       {...rest}
-      className="text-neutral-700 dark:text-neutral-200 hover:text-black "
+      className="text-neutral-200 hover:text-white hover:bg-neutral-800 transition-colors rounded-lg px-2 py-1"
     >
       {children}
     </a>
   );
 };
+
+export const NavbarProjects = () => {
+  const navbarProjects = cards.slice(0, 4) as Card[];
+  return (
+    <>
+      {navbarProjects.map((card, idx) => (
+        <ProductItem
+          key={idx}
+          title={card.title}
+          description={card.description}
+          href={card.ctaLink}
+          src={card.src}
+          onClick={(e) => {
+            e.preventDefault();
+            const el = document.getElementById("projects");
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+          }}
+        />
+      ))}
+    </>
+  );
+};
+
+// Tambahkan komponen utama Navbar
+export default function Navbar() {
+  const [active, setActive] = useState<string | null>(null);
+  return (
+    <Menu setActive={setActive}>
+      <MenuItem setActive={setActive} active={active} item="Home">
+        {/* Kosong atau bisa tambahkan konten lain */}
+      </MenuItem>
+      <MenuItem setActive={setActive} active={active} item="About">
+        {/* Kosong atau bisa tambahkan konten lain */}
+      </MenuItem>
+      <MenuItem setActive={setActive} active={active} item="Projects">
+        <NavbarProjects />
+      </MenuItem>
+      <MenuItem setActive={setActive} active={active} item="Contact">
+        {/* Kosong atau bisa tambahkan konten lain */}
+      </MenuItem>
+    </Menu>
+  );
+}

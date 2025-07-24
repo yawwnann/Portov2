@@ -64,6 +64,7 @@ const AboutSection: React.FC = () => {
         >
           <motion.div
             ref={cardRef}
+            id="profile-card"
             initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             transition={{ duration: 0.8, delay: 0.1 }}

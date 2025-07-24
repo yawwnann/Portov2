@@ -9,36 +9,35 @@ export function InfiniteMovingCardsDemo() {
     </div>
   );
 }
-
 const experiences = [
   {
     quote:
-      "Led the development of a full-stack e-commerce platform using React, Node.js, and MongoDB. Implemented real-time inventory management, payment gateway integration, and responsive design. Successfully launched the platform serving 10,000+ daily users.",
-    name: "Senior Full-Stack Developer",
-    title: "TechCorp Solutions - 2023",
+      "Menguasai backend development menggunakan Node.js untuk server, logika bisnis, dan database. Membuat RESTful API menggunakan Next.js sebagai backend dan integrasi proyek akhir dengan layanan Machine Learning melalui API.",
+    name: "Frontend And Backend Developer Cohort",
+    title: "Coding Camp 2025 by DBS Foundation - 2025",
   },
   {
     quote:
-      "Developed and maintained multiple React applications for a fintech startup. Collaborated with cross-functional teams to implement new features, optimize performance, and ensure code quality. Reduced loading times by 40% through optimization.",
-    name: "Frontend Developer",
-    title: "FinTech Innovations - 2022",
+      "Mengembangkan lebih dari 100 proyek sebagai Pengembang Fullstack (Laravel, React.js) dan Desainer Grafis untuk berbagai klien selama 1,5 tahun. Merancang backend dan frontend aplikasi bisnis, serta membangun UI/UX responsif dan optimal.",
+    name: "Freelance Web Developer & Graphic Designer",
+    title: "Yogyakarta, Indonesia - 2024–Sekarang",
   },
   {
     quote:
-      "Built a comprehensive dashboard for data analytics using TypeScript and Next.js. Integrated with various APIs and implemented real-time data visualization. The dashboard improved decision-making efficiency by 60%.",
-    name: "Software Engineer",
-    title: "DataFlow Systems - 2021",
+      "Memimpin tim desain untuk produksi konten visual seperti poster, backdrop, dan media sosial. Aktif sebagai Koordinator dalam kegiatan antar-divisi untuk kelancaran acara orientasi mahasiswa baru.",
+    name: "Koordinator Desain",
+    title: "Kreatif P2K FORBES UAD 2024 - 2024",
   },
   {
     quote:
-      "Created responsive web applications and mobile-first designs using modern CSS frameworks. Collaborated with UX/UI designers to implement pixel-perfect designs. Delivered 15+ projects on time and within budget.",
-    name: "Web Developer",
-    title: "Digital Creations - 2020",
+      "Terlibat dalam pengembangan proyek berbasis game. Menggunakan HTML, Tailwind, JavaScript ActionScript, dan keterampilan grafis lainnya untuk mendukung tim.",
+    name: "Programmer",
+    title: "PKM UAD 2024 (Program Kreativitas Mahasiswa) - 2024",
   },
   {
     quote:
-      "Developed RESTful APIs and microservices using Node.js and Express. Implemented authentication, authorization, and database optimization. Maintained 99.9% uptime for critical business applications.",
-    name: "Backend Developer",
-    title: "CloudTech Solutions - 2019",
+      "Bertanggung jawab atas pengelolaan dan pelaksanaan materi promosi visual kegiatan UKM, mendesain berbagai aset grafis (poster, pamflet, media sosial), serta mendokumentasikan acara, promosi, dan edukasi UKM.",
+    name: "Humas",
+    title: "UKM Taekwondo Universitas Ahmad Dahlan - 2023–Sekarang",
   },
 ];

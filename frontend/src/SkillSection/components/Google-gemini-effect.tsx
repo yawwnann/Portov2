@@ -11,6 +11,7 @@ import react from "../../assets/react-2.svg";
 import mysql from "../../assets/mysql.svg";
 import mongodb from "../../assets/mongo-svgrepo-com.svg";
 import nodejs from "../../assets/nodejs.svg";
+import React from "react";
 
 const transition = {
   duration: 0,
@@ -51,8 +52,8 @@ export const GoogleGeminiEffect = ({
   const rightYs = [662.5, 588, 513.235, 439, 364];
   const leftYs = [663, 587.5, 514, 438.5, 364];
   return (
-    <div className={cn("sticky top-80", className)}>
-      <p className="text-lg md:text-7xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
+    <div className={cn("sticky top-40", className)}>
+      <p className="text-lg md:text-5xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
         {title || `My Skills`}
       </p>
       <p className="text-xs md:text-xl font-normal text-center text-neutral-400 mt-4 max-w-lg mx-auto">
@@ -189,7 +190,7 @@ export const GoogleGeminiEffect = ({
 
         {/* Icon kiri dan kanan untuk setiap path utama */}
         {leftYs.map((y, i) => (
-          <>
+          <React.Fragment key={`left-group-${i}`}>
             {i === 2 && (
               <rect
                 x={0}
@@ -201,14 +202,13 @@ export const GoogleGeminiEffect = ({
               />
             )}
             <image
-              key={`left-${i}`}
               x="0"
               y={y - 20}
               width="56"
               height="56"
               href={leftLogos[i]}
             />
-          </>
+          </React.Fragment>
         ))}
         {rightYs.map((y, i) => {
           // Perbesar icon untuk Node.js, MongoDB, MySQL (index 2, 3, 4)

@@ -66,7 +66,7 @@ export default function Herosection() {
         }}
       >
         <BlurText
-          text="WELCOME TO MY PORTOFOLIO"
+          text="YUWANANTA VALENCIA AFSHANDY"
           delay={150}
           animateBy="words"
           direction="top"
