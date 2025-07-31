@@ -22,7 +22,7 @@ const ProjectSection: React.FC = () => {
   });
 
   return (
-    <section className="w-full max-w-6xl mx-auto my-32 px-4">
+    <section className="w-full max-w-7xl mx-auto mt-20 px-4">
       {/* Projects Section */}
       <div ref={refProjects}>
         <motion.h2

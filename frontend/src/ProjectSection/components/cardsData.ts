@@ -78,7 +78,7 @@ export const cards = [
     description: "Office Rental Web App for Java",
     title: "Javanesia",
     src: Project7Img,
-    ctaText: "View Details",
+    ctaText: " Details",
     ctaLink: "#",
     techStack: ["Typescript", "Laravel", "Tailwind", "Mysql"],
     content:
@@ -88,7 +88,7 @@ export const cards = [
     description: "Petshop & Pet Supplies Web App",
     title: "Buana Petshop",
     src: Project8Img,
-    ctaText: "View Details",
+    ctaText: " Details",
     ctaLink: "#",
     techStack: ["React", "Laravel", "Breeze", "Bootstrap", "Mysql"],
     content:
@@ -98,7 +98,7 @@ export const cards = [
     description: "Construction Company Profile Web",
     title: "NMJ",
     src: Project9Img,
-    ctaText: "View Details",
+    ctaText: " Details",
     ctaLink: "#",
     techStack: ["React", "Laravel", "Breeze", "Bootstrap", "Mysql"],
     content:
@@ -108,7 +108,7 @@ export const cards = [
     description: "Agricultural Equipment Ordering Web App",
     title: "Andika Tani",
     src: Project10Img,
-    ctaText: "View Details",
+    ctaText: " Details",
     ctaLink: "#",
     techStack: ["React", "Tailwind", "Laravel", "Filament", "Mysql"],
     content:
@@ -118,7 +118,7 @@ export const cards = [
     description: "Online Office Supplies Store",
     title: "Lestari ATK",
     src: Project11Img,
-    ctaText: "View Details",
+    ctaText: " Details",
     ctaLink: "#",
     techStack: ["React", "Tailwind", "Laravel", "Filament", "Mysql"],
     content:
@@ -128,7 +128,7 @@ export const cards = [
     description: "Building Materials Store & Profile Web",
     title: "Trijaya Agung",
     src: Project12Img,
-    ctaText: "View Details",
+    ctaText: " Details",
     ctaLink: "#",
     techStack: [
       "Typescript",
@@ -146,7 +146,7 @@ export const cards = [
     description: "Personal Finance Management Web (ML)",
     title: "FinTrack",
     src: Project13Img,
-    ctaText: "View Details",
+    ctaText: " Details",
     ctaLink: "#",
     techStack: [
       "Nextjs",
@@ -166,7 +166,7 @@ export const cards = [
     description: "Online Seafood Ordering Web App",
     title: "Pasifix Seafood",
     src: Project14Img,
-    ctaText: "View Details",
+    ctaText: " Details",
     ctaLink: "#",
     techStack: ["React", "Tailwind", "Laravel", "Filament", "Mysql"],
     content:

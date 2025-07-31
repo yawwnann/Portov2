@@ -1,9 +1,10 @@
-import Aurora from "./Background/Aurora";
+// import Aurora from "./Background/Aurora";
 import BlurText from "./HeroText/HeroText";
 import CircularText from "./HeroText/CircularText";
 import HeroIconY2K2 from "./HeroText/HeroIconY2K2";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import DarkVeil from "./Background/DarkVeil";
 
 export default function Herosection() {
   const [animateIn, setAnimateIn] = useState(false);
@@ -24,7 +25,7 @@ export default function Herosection() {
         overflow: "hidden",
       }}
     >
-      <Aurora />
+      <DarkVeil />
       <div
         className={animateIn ? "animate-hero-fadein" : ""}
         style={{ position: "absolute", top: 20, left: 20, zIndex: 10 }}

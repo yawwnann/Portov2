@@ -60,7 +60,7 @@ export const StickyScroll = ({
           // Hapus backgroundColors dan useState yang tidak terpakai
         }
       }
-      className="relative flex h-[30rem] justify-center space-x-10 overflow-y-auto rounded-md p-10 sticky-scroll-custom"
+      className="relative flex h-[30rem] justify-center space-x-20 overflow-y-auto rounded-md p-10 sticky-scroll-custom"
       ref={ref}
     >
       <div className="div relative flex items-start px-4">
@@ -100,7 +100,7 @@ export const StickyScroll = ({
           background: linearGradients[activeCard % linearGradients.length],
         }}
         className={cn(
-          "sticky top-10 hidden h-60 w-80 overflow-hidden rounded-md bg-white lg:block",
+          "sticky top-10 hidden h-80 w-[30rem] overflow-hidden rounded-md bg-white lg:block",
           contentClassName
         )}
       >

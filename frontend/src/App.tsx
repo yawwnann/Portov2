@@ -5,6 +5,8 @@ import SkillSection from "./SkillSection/SkillSection";
 import ToolsSection from "./SkillSection/ToolsSection";
 import ProjectSection from "./ProjectSection/ProjectSection";
 import ContactSection from "./ContactSection/ContactSection";
+import SertifSection from "./SertifSection/Sertifsection";
+
 import {
   HoveredLink,
   Menu,
@@ -31,6 +33,9 @@ function App() {
         <ToolsSection />
         <div id="projects">
           <ProjectSection />
+        </div>
+        <div id="sertif">
+          <SertifSection />
         </div>
         <div id="contact">
           <ContactSection />
