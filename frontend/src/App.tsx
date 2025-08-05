@@ -1,4 +1,7 @@
+import React, { useState, useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
 import "./App.css";
+import logo from "./assets/logo.png";
 import Herosection from "./Herosection/Herosection";
 import AboutSection from "./AboutSection/AboutSection";
 import SkillSection from "./SkillSection/SkillSection";
@@ -6,139 +9,149 @@ import ToolsSection from "./SkillSection/ToolsSection";
 import ProjectSection from "./ProjectSection/ProjectSection";
 import ContactSection from "./ContactSection/ContactSection";
 import SertifSection from "./SertifSection/Sertifsection";
-
-import {
-  HoveredLink,
-  Menu,
-  MenuItem,
-  NavbarProjects,
-} from "./components/Navbar";
-import { cn } from "./lib/utils";
-import { useState } from "react";
+import NavbarContainer from "./components/NavbarContainer";
 import { FooterWithLogo } from "./components/Footer";
 
+const Preloader = React.forwardRef<HTMLDivElement>((props, ref) => (
+  <div ref={ref} className="preloader-gacor">
+    <div className="background-warp" />
+    <img src={logo} alt="Logo" className="logo-gacor" />
+    <div className="flash-ring" />
+    <div className="particles-container" />
+    <div className="label-gacor">ENTERING REALITY...</div>
+  </div>
+));
+
+const PortfolioContent = () => (
+  <div className="bg-black text-neutral-100 min-h-screen">
+    <div className="relative w-full flex items-center justify-center">
+      <NavbarContainer className="top-2" />
+    </div>
+    <Herosection />
+    <div id="about">
+      <AboutSection />
+    </div>
+    <SkillSection />
+    <ToolsSection />
+    <div id="projects">
+      <ProjectSection />
+    </div>
+    <div id="sertif" className="hidden md:block">
+      <SertifSection />
+    </div>
+    <div id="contact">
+      <ContactSection />
+    </div>
+    <FooterWithLogo />
+  </div>
+);
+
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const preloaderRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (isLoading && preloaderRef.current) {
+      const logo = preloaderRef.current.querySelector(".logo-gacor");
+      const bg = preloaderRef.current.querySelector(".background-warp");
+      const ring = preloaderRef.current.querySelector(".flash-ring");
+      const label = preloaderRef.current.querySelector(".label-gacor");
+      const particlesContainer = preloaderRef.current.querySelector(
+        ".particles-container"
+      );
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.inOut" },
+        onComplete: () => setIsLoading(false),
+      });
+
+      tl.set(preloaderRef.current, { opacity: 1 })
+        .fromTo(
+          bg,
+          { scale: 1.8, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 1.2 }
+        )
+        .fromTo(
+          logo,
+          { scale: 0, rotation: 720, opacity: 0, filter: "blur(20px)" },
+          {
+            scale: 1,
+            rotation: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 1.5,
+            ease: "elastic.out(1, 0.5)",
+          },
+          "-=0.8"
+        )
+        .fromTo(
+          ring,
+          { scale: 0, opacity: 1 },
+          { scale: 4, opacity: 0, duration: 0.6 },
+          "-=1.2"
+        )
+        .to(logo, {
+          keyframes: [
+            { scale: 1.1, duration: 0.1 },
+            { scale: 0.95, duration: 0.1 },
+            { scale: 1.05, duration: 0.1 },
+            { scale: 1, duration: 0.1 },
+          ],
+        })
+        .fromTo(
+          label,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.7 },
+          "-=0.2"
+        )
+        .add(() => {
+          // Particle burst effect
+          if (particlesContainer) {
+            for (let i = 0; i < 30; i++) {
+              const particle = document.createElement("div");
+              particle.className = "particle";
+              particlesContainer.appendChild(particle);
+              gsap.fromTo(
+                particle,
+                {
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  opacity: 1,
+                  backgroundColor: `hsl(${Math.random() * 360}, 80%, 60%)`,
+                },
+                {
+                  x: (Math.random() - 0.5) * 400,
+                  y: (Math.random() - 0.5) * 400,
+                  scale: 0,
+                  opacity: 0,
+                  duration: 1.5,
+                  ease: "power4.out",
+                  onComplete: () => particle.remove(),
+                }
+              );
+            }
+          }
+        }, "+=0")
+        .to(preloaderRef.current, {
+          scale: 1.1,
+          opacity: 0,
+          duration: 1.2,
+          ease: "expo.inOut",
+          delay: 1,
+          onComplete: () => {
+            if (preloaderRef.current)
+              preloaderRef.current.style.display = "none";
+          },
+        });
+    }
+  }, [isLoading]);
+
   return (
     <>
-      {" "}
-      <div className="bg-black text-neutral-100 min-h-screen">
-        <div className="relative w-full flex items-center justify-center">
-          <Navbar className="top-2" />
-        </div>
-        <Herosection />
-        <div id="about">
-          <AboutSection />
-        </div>
-        <SkillSection />
-        <ToolsSection />
-        <div id="projects">
-          <ProjectSection />
-        </div>
-        <div id="sertif">
-          <SertifSection />
-        </div>
-        <div id="contact">
-          <ContactSection />
-        </div>
-        <FooterWithLogo />
-      </div>
+      {isLoading && <Preloader ref={preloaderRef} />}
+      {!isLoading && <PortfolioContent />}
     </>
-  );
-}
-
-function Navbar({ className }: { className?: string }) {
-  const [active, setActive] = useState<string | null>(null);
-  return (
-    <div
-      className={cn(
-        "fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 ",
-        className
-      )}
-    >
-      <Menu setActive={setActive}>
-        <div className="flex items-center justify-around w-full">
-          {/* Logo Kiri */}
-          <div className="text-white font-bold text-2xl flex items-center">
-            {"</>"}
-          </div>
-
-          <div className="flex items-center text-xl space-x-8">
-            <MenuItem setActive={setActive} active={active} item="About Me">
-              <div className="flex flex-col space-y-4 text-lg md:text-xl font-semibold bg-black/90 text-white rounded-xl shadow-lg p-4 border-none">
-                <HoveredLink
-                  href="#web-dev"
-                  onClick={() => {
-                    const el = document.getElementById("profile-card");
-                    if (el)
-                      el.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                      });
-                  }}
-                >
-                  Web Development
-                </HoveredLink>
-                <HoveredLink
-                  href="#interface-design"
-                  onClick={() => {
-                    const el = document.getElementById("profile-card");
-                    if (el)
-                      el.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                      });
-                  }}
-                >
-                  UI/UX Design
-                </HoveredLink>
-                <HoveredLink
-                  href="#seo"
-                  onClick={() => {
-                    const el = document.getElementById("profile-card");
-                    if (el)
-                      el.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                      });
-                  }}
-                >
-                  Graphic Design
-                </HoveredLink>
-              </div>
-            </MenuItem>
-            <MenuItem setActive={setActive} active={active} item="Portfolio">
-              <div className="grid grid-cols-2 gap-6 p-4 bg-black/90 text-white rounded-xl shadow-lg border-none">
-                <NavbarProjects />
-              </div>
-            </MenuItem>
-            <MenuItem setActive={setActive} active={active} item="Contact">
-              <div className="flex flex-col space-y-4 text-lg md:text-xl font-semibold bg-black/90 text-white rounded-xl shadow-lg p-4 border-none">
-                <HoveredLink
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const el = document.getElementById("contact");
-                    if (el)
-                      el.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                      });
-                  }}
-                  className="font-bold text-lg hover:bg-transparent cursor-pointer"
-                >
-                  Contact Me
-                </HoveredLink>
-              </div>
-            </MenuItem>
-          </div>
-
-          {/* Logo Kanan */}
-          <div className="text-white font-bold text-xl flex items-center">
-            {"</>"}
-          </div>
-        </div>
-      </Menu>
-    </div>
   );
 }
 

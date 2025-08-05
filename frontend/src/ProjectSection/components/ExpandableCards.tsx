@@ -52,8 +52,8 @@ export function ExpandableCardDemo() {
       </AnimatePresence>
 
       <AnimatePresence>
-        {active && typeof active === "object" ? (
-          <div className="fixed inset-0 grid place-items-center z-[100] p-4">
+        {active && typeof active === "object" && (
+          <div className="fixed inset-0 grid place-items-center z-[100] p-2 sm:p-4">
             <motion.button
               key={`button-${active.title}-${id}`}
               layout
@@ -69,7 +69,7 @@ export function ExpandableCardDemo() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[90%] sm:max-w-[600px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 dark:border-neutral-800"
+              className="w-full max-w-sm sm:max-w-md md:max-w-lg h-fit max-h-[90vh] flex flex-col bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 dark:border-neutral-800"
             >
               <motion.div
                 layoutId={`image-${active.title}-${id}`}
@@ -80,40 +80,39 @@ export function ExpandableCardDemo() {
                   height={400}
                   src={active.src}
                   alt={active.title}
-                  className="w-full h-64 sm:h-80 object-cover"
+                  className="w-full h-48 sm:h-64 md:h-80 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70" />
               </motion.div>
 
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="flex flex-col sm:flex-row justify-between items-start gap-6">
                   <div className="flex-1">
                     <motion.h3
                       layoutId={`title-${active.title}-${id}`}
-                      className="font-bold text-2xl text-neutral-800 dark:text-white mb-2"
+                      className="font-bold text-xl sm:text-2xl text-neutral-800 dark:text-white mb-2"
                     >
                       {active.title}
                     </motion.h3>
                     <motion.p
                       layoutId={`description-${active.description}-${id}`}
-                      className="text-neutral-600 dark:text-neutral-300 mb-4"
+                      className="text-neutral-600 dark:text-neutral-300 mb-4 text-sm sm:text-base"
                     >
                       {active.description}
                     </motion.p>
 
-                    {Array.isArray(active.techStack) &&
-                      active.techStack.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {active.techStack.map((tech: string, idx: number) => (
-                            <span
-                              key={idx}
-                              className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-200 rounded-full px-3 py-1 text-xs font-medium"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                    {active.techStack?.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {active.techStack.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-200 rounded-full px-3 py-1 text-xs font-medium"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <motion.a
@@ -123,7 +122,7 @@ export function ExpandableCardDemo() {
                     exit={{ opacity: 0 }}
                     href={active.ctaLink}
                     target="_blank"
-                    className="px-6 py-3 text-sm font-semibold rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap"
+                    className="px-5 py-2 text-sm font-semibold rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap"
                   >
                     {active.ctaText}
                   </motion.a>
@@ -135,7 +134,7 @@ export function ExpandableCardDemo() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-700 dark:text-neutral-300 text-base h-48 md:h-fit overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent"
+                    className="text-neutral-700 dark:text-neutral-300 text-sm sm:text-base h-40 sm:h-32 md:h-48 overflow-y-auto pr-1 sm:pr-2 scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent"
                   >
                     {active.content}
                   </motion.div>
@@ -143,10 +142,10 @@ export function ExpandableCardDemo() {
               </div>
             </motion.div>
           </div>
-        ) : null}
+        )}
       </AnimatePresence>
 
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="w-full grid grid-cols-2 grid-rows-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
         <AnimatePresence>
           {cards.map((card: Card, idx: number) => (
             <motion.div
@@ -157,7 +156,7 @@ export function ExpandableCardDemo() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-700 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 h-full flex flex-col"
+              className="group bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-700 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 h-[30rem] md:h-full flex flex-col"
             >
               <div className="relative overflow-hidden">
                 <motion.div
@@ -172,9 +171,7 @@ export function ExpandableCardDemo() {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 </motion.div>
-
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <motion.h3
                     layoutId={`title-${card.title}-${id}`}
@@ -201,18 +198,16 @@ export function ExpandableCardDemo() {
                   </motion.p>
                 </div>
 
-                {Array.isArray(card.techStack) && card.techStack.length > 0 && (
+                {card.techStack?.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4 mt-auto">
-                    {card.techStack
-                      .slice(0, 3)
-                      .map((tech: string, idx: number) => (
-                        <span
-                          key={idx}
-                          className="bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-full px-2 py-1 text-xs font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    {card.techStack.slice(0, 3).map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-full px-2 py-1 text-xs font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                     {card.techStack.length > 3 && (
                       <span className="bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-full px-2 py-1 text-xs font-medium">
                         +{card.techStack.length - 3}

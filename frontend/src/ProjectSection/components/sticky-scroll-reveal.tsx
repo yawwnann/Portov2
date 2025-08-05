@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import { motion } from "motion/react";
 import { cn } from "../../lib/utils";
@@ -18,8 +18,6 @@ export const StickyScroll = ({
   const [activeCard, setActiveCard] = React.useState(0);
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
-    // uncomment line 22 and comment line 23 if you DONT want the overflow container and want to have it change on the entire page scroll
-    // target: ref
     container: ref,
     offset: ["start start", "end start"],
   });
@@ -42,29 +40,42 @@ export const StickyScroll = ({
 
   const linearGradients = React.useMemo(
     () => [
-      "linear-gradient(to bottom right, #06b6d4, #10b981)", // cyan-500 to emerald-500
-      "linear-gradient(to bottom right, #ec4899, #6366f1)", // pink-500 to indigo-500
-      "linear-gradient(to bottom right, #f97316, #eab308)", // orange-500 to yellow-500
+      "linear-gradient(to bottom right, #06b6d4, #10b981)",
+      "linear-gradient(to bottom right, #ec4899, #6366f1)",
+      "linear-gradient(to bottom right, #f97316, #eab308)",
     ],
     []
   );
 
-  useEffect(() => {
-    // Hapus backgroundColors dan useState yang tidak terpakai
-  }, [activeCard, linearGradients]);
-
   return (
-    <motion.div
-      animate={
-        {
-          // Hapus backgroundColors dan useState yang tidak terpakai
-        }
-      }
-      className="relative flex h-[30rem] justify-center space-x-20 overflow-y-auto rounded-md p-10 sticky-scroll-custom"
-      ref={ref}
-    >
-      <div className="div relative flex items-start px-4">
-        <div className="max-w-2xl">
+    <>
+      {/* Mobile View */}
+      <div className="block lg:hidden space-y-16 px-4 py-6">
+        {content.map((item, index) => (
+          <div key={index} className="space-y-4">
+            <h2 className="text-xl font-bold text-white">{item.title}</h2>
+            <p className="text-slate-300">{item.description}</p>
+            <div
+              className={cn(
+                "w-full overflow-hidden rounded-md",
+                contentClassName
+              )}
+              style={{
+                background: linearGradients[index % linearGradients.length],
+              }}
+            >
+              {item.content}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop View */}
+      <motion.div
+        className="relative sticky-scroll-custom hidden lg:flex h-[30rem] justify-center space-x-20 overflow-y-auto rounded-md p-10"
+        ref={ref}
+      >
+        <div className="relative flex flex-col items-start px-4 max-w-2xl">
           {content.map((item, index) => {
             let state = "below";
             if (activeCard === index) state = "active";
@@ -94,22 +105,24 @@ export const StickyScroll = ({
           })}
           <div className="h-40" />
         </div>
-      </div>
-      <div
-        style={{
-          background: linearGradients[activeCard % linearGradients.length],
-        }}
-        className={cn(
-          "sticky top-10 hidden h-80 w-[30rem] overflow-hidden rounded-md bg-white lg:block",
-          contentClassName
-        )}
-      >
-        {content[activeCard].content ?? null}
-      </div>
-    </motion.div>
+
+        <div
+          style={{
+            background: linearGradients[activeCard % linearGradients.length],
+          }}
+          className={cn(
+            "sticky top-10 h-80 w-[30rem] overflow-hidden rounded-md bg-white",
+            contentClassName
+          )}
+        >
+          {content[activeCard].content ?? null}
+        </div>
+      </motion.div>
+    </>
   );
 };
 
+// --- Sample Usage ---
 const content = [
   {
     title: "Redesign BRImo Mobile App",
@@ -139,7 +152,6 @@ const content = [
       </div>
     ),
   },
-
   {
     title: "Web-Based Translator App",
     description:
@@ -170,6 +182,7 @@ const content = [
   },
 ];
 
+// Demo Wrapper
 export function StickyScrollRevealDemo() {
   return (
     <div className="w-full py-4">

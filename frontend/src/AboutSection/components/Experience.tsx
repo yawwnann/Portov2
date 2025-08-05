@@ -1,6 +1,6 @@
 "use client";
 
-import { InfiniteMovingCards } from "./components/Infinite-Moving-Cards";
+import { InfiniteMovingCards } from "./Infinite-Moving-Cards";
 
 export function InfiniteMovingCardsDemo() {
   return (

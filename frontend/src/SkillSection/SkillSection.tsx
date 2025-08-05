@@ -18,7 +18,7 @@ export function SkillSection() {
 
   return (
     <div
-      className="h-[400vh] bg-black w-full  relative pt-40 overdark:border flow-clip"
+      className="h-[400vh] bg-black w-full md:w-[90%] mx-auto relative pt-20 md:pt-40 overdark:border flow-clip"
       ref={ref}
     >
       <GoogleGeminiEffect

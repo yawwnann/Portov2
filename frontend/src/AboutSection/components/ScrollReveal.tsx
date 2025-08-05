@@ -52,9 +52,12 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     const scroller =
       scrollContainerRef && scrollContainerRef.current
         ? scrollContainerRef.current
-        : window;
+        : undefined;
 
-    gsap.fromTo(
+    const triggers: ScrollTrigger[] = [];
+
+    // Rotation animation
+    const rotationTween = gsap.fromTo(
       el,
       { transformOrigin: "0% 50%", rotate: baseRotation },
       {
@@ -69,12 +72,13 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
         },
       }
     );
+    triggers.push(rotationTween.scrollTrigger!);
 
     const wordElements = el.querySelectorAll<HTMLElement>(".word");
-    console.log("wordElements found:", wordElements.length);
 
     if (wordElements.length > 0) {
-      gsap.fromTo(
+      // Opacity animation
+      const opacityTween = gsap.fromTo(
         wordElements,
         { opacity: baseOpacity, willChange: "opacity" },
         {
@@ -90,9 +94,11 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
           },
         }
       );
+      triggers.push(opacityTween.scrollTrigger!);
 
+      // Blur animation
       if (enableBlur) {
-        gsap.fromTo(
+        const blurTween = gsap.fromTo(
           wordElements,
           { filter: `blur(${blurStrength}px)` },
           {
@@ -108,13 +114,20 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
             },
           }
         );
+        triggers.push(blurTween.scrollTrigger!);
       }
     }
 
+    // Refresh ScrollTrigger on mount and resize/orientation
+    ScrollTrigger.refresh();
+    const handleResize = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
     return () => {
-      ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) =>
-        trigger.kill()
-      );
+      triggers.forEach((trigger) => trigger.kill());
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
     };
   }, [
     scrollContainerRef,
@@ -129,7 +142,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   return (
     <h2 ref={containerRef} className={`my-5 ${containerClassName}`}>
       <p
-        className={`text-[clamp(0.7rem,1.8vw,1.8rem)] leading-[1.5]  ${textClassName}`}
+        className={`text-[clamp(0.7rem,1.8vw,1.8rem)] leading-[1.5] ${textClassName}`}
       >
         {splitText}
       </p>

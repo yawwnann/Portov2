@@ -121,7 +121,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
       onPointerLeave={endDrag}
     >
       <svg
-        className="select-none w-full overflow-visible block aspect-[100/12] text-[6rem] font-bold tracking-[5px] uppercase leading-none"
+        className="select-none w-full overflow-visible block aspect-[100/30] text-[6rem] font-bold tracking-[5px] uppercase leading-none"
         viewBox="0 0 1440 120"
       >
         <text

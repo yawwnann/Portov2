@@ -27,3 +27,55 @@
 .animate-heroicon-fadein {
   animation: heroicon-fadein 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
 }
+
+.preloader-gacor {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.background-warp {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(circle at center, #1f1f1f 0%, #000 100%);
+  transform-origin: center;
+  z-index: 0;
+}
+
+.logo-gacor {
+  width: 200px;
+  z-index: 2;
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+}
+
+.flash-ring {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.label-gacor {
+  color: white;
+  font-size: 1rem;
+  margin-top: 24px;
+  font-family: "Courier New", monospace;
+  letter-spacing: 0.1em;
+  z-index: 2;
+  opacity: 0;
+}

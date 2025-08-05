@@ -13,6 +13,8 @@ import mongodb from "../../assets/mongo-svgrepo-com.svg";
 import nodejs from "../../assets/nodejs.svg";
 import React from "react";
 
+import logo from "../../assets/logo.png"
+
 const transition = {
   duration: 0,
   ease: "linear" as const,
@@ -53,17 +55,17 @@ export const GoogleGeminiEffect = ({
   const leftYs = [663, 587.5, 514, 438.5, 364];
   return (
     <div className={cn("sticky top-40", className)}>
-      <p className="text-lg md:text-5xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
+      <p className="text-2xl md:text-5xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
         {title || `My Skills`}
       </p>
-      <p className="text-xs md:text-xl font-normal text-center text-neutral-400 mt-4 max-w-lg mx-auto">
+      <p className="text-sm md:text-xl font-normal text-center text-neutral-400 mt-4 max-w-lg mx-auto">
         {description ||
           `Scroll down to explore my main tech stack and see the icons come alive with animation.`}
       </p>
 
-      <div className="w-full h-[890px] -top-60 md:-top-35  flex items-center justify-center bg-red-transparent absolute ">
-        <button className="font-bold bg-white rounded-full md:px-4 md:py-2 px-2 py-1 md:mt-24 mt-10 z-30 md:text-base text-black text-xs  w-fit mx-auto ">
-          Yawwnan
+      <div className="w-full h-[600px] md:h-[890px] -top-40 md:-top-60 lg:-top-35  flex items-center justify-center bg-red-transparent absolute ">
+        <button className="backdrop-blur-sm rounded-full md:px-4 md:py-2 px-2 py-1 md:mt-24 mt-10 z-30 md:text-base text-black text-xs  w-fit mx-auto ">
+          <img src={logo} alt="logo" className="w-20 md:w-35" />
         </button>
       </div>
       <svg

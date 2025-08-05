@@ -15,6 +15,8 @@ type BlurTextProps = {
   easing?: (t: number) => number;
   onAnimationComplete?: () => void;
   stepDuration?: number;
+  showSubtitle?: boolean;
+  subtitleText?: string;
 };
 
 const buildKeyframes = (
@@ -46,10 +48,25 @@ const BlurText: React.FC<BlurTextProps> = ({
   easing = (t) => t,
   onAnimationComplete,
   stepDuration = 0.35,
+  showSubtitle = true,
+  subtitleText = "Building creative and functional digital solutions.",
 }) => {
   const elements = animateBy === "words" ? text.split(" ") : text.split("");
   const [inView, setInView] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
   const ref = useRef<HTMLParagraphElement>(null);
+
+  // Handle window resize for responsive font sizing
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -86,6 +103,30 @@ const BlurText: React.FC<BlurTextProps> = ({
     [direction]
   );
 
+  // Responsive font size calculation
+  const getResponsiveFontSize = () => {
+    if (windowWidth < 480) return 24; // xs screens
+    if (windowWidth < 640) return 32; // sm screens
+    if (windowWidth < 768) return 40; // md screens
+    if (windowWidth < 1024) return 48; // lg screens
+    if (windowWidth < 1280) return 56; // xl screens
+    return 64; // 2xl+ screens
+  };
+
+  // Responsive line height
+  const getResponsiveLineHeight = () => {
+    if (windowWidth < 480) return 1.2;
+    if (windowWidth < 640) return 1.3;
+    return 1.4;
+  };
+
+  // Responsive letter spacing
+  const getResponsiveLetterSpacing = () => {
+    if (windowWidth < 480) return "-0.02em";
+    if (windowWidth < 640) return "-0.025em";
+    return "-0.03em";
+  };
+
   const fromSnapshot = animationFrom ?? defaultFrom;
   const toSnapshots = animationTo ?? defaultTo;
 
@@ -96,7 +137,10 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 
   return (
-    <>
+    <div
+      className="blur-text-container"
+      style={{ width: "100%", maxWidth: "100%" }}
+    >
       <p
         ref={ref}
         className={`blur-text ${className}`}
@@ -104,10 +148,18 @@ const BlurText: React.FC<BlurTextProps> = ({
           color: "white",
           textAlign: "center",
           zIndex: 2,
-          width: "max-content",
+          width: "100%",
+          maxWidth: "100%",
           pointerEvents: "none",
-          fontSize: 70,
-          margin: "auto",
+          fontSize: getResponsiveFontSize(),
+          lineHeight: getResponsiveLineHeight(),
+          letterSpacing: getResponsiveLetterSpacing(),
+          margin: "0 auto",
+          fontWeight: "bold",
+          wordBreak: "break-word",
+          hyphens: "auto",
+          padding: "0 16px",
+          boxSizing: "border-box",
         }}
       >
         {elements.map((segment, index) => {
@@ -132,6 +184,8 @@ const BlurText: React.FC<BlurTextProps> = ({
               style={{
                 display: "inline-block",
                 willChange: "transform, filter, opacity",
+                wordBreak: "keep-all",
+                whiteSpace: segment === " " ? "pre" : "normal",
               }}
             >
               {segment === " " ? "\u00A0" : segment}
@@ -140,15 +194,30 @@ const BlurText: React.FC<BlurTextProps> = ({
           );
         })}
       </p>
-      <motion.p
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-        style={{ color: "white", textAlign: "center", marginTop: 16 }}
-      >
-        Building creative and functional digital solutions.
-      </motion.p>
-    </>
+
+      {showSubtitle && (
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          style={{
+            color: "rgba(255, 255, 255, 0.8)",
+            textAlign: "center",
+            marginTop: windowWidth < 480 ? 12 : windowWidth < 768 ? 16 : 20,
+            fontSize: windowWidth < 480 ? 14 : windowWidth < 768 ? 16 : 18,
+            lineHeight: 1.5,
+            maxWidth: "90%",
+            margin: `${
+              windowWidth < 480 ? 12 : windowWidth < 768 ? 16 : 20
+            }px auto 0`,
+            padding: "0 16px",
+            fontWeight: "400",
+          }}
+        >
+          {subtitleText}
+        </motion.p>
+      )}
+    </div>
   );
 };
 

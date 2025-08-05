@@ -151,7 +151,7 @@ const InfiniteLogoMarquee = ({
 
 const ToolsSection: React.FC = () => {
   return (
-    <section className="w-full max-w-5xl  mx-auto mt-96 mb-12 px-4">
+    <section className="w-full max-w-5xl  mx-auto mt-50 md:mt-96 mb-12 px-4">
       <h2 className="text-lg md:text-5xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
         Tools
       </h2>

@@ -2,8 +2,6 @@ import React from "react";
 
 const spinStyle: React.CSSProperties = {
   animation: "spin 5s linear infinite",
-  width: 120,
-  height: 120,
   display: "block",
   transformOrigin: "50% 50%",
 };
@@ -30,7 +28,7 @@ interface HeroIconY2K2Props {
 const HeroIconY2K2: React.FC<HeroIconY2K2Props> = ({ className }) => (
   <svg
     style={spinStyle}
-    className={className}
+    className={`w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 ${className}`}
     viewBox="0 0 640 640"
     fill="white"
     xmlns="http://www.w3.org/2000/svg"
